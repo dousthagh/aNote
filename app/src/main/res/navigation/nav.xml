@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="co.nikavtech.anote.screens.fragments.home.HomeFragment"
+        android:label="aNote"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteFragment"
+        tools:layout="@layout/fragment_note"
+        android:name="co.nikavtech.anote.screens.fragments.note.NoteFragment"
+        android:label="@string/new_note" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        tools:layout="@layout/fragment_about"
+        android:name="co.nikavtech.anote.screens.fragments.about.AboutFragment"
+        android:label="@string/about_us" />
+    <fragment
+        android:id="@+id/contactFragment"
+        tools:layout="@layout/fragment_contact"
+        android:name="co.nikavtech.anote.screens.fragments.contact.ContactFragment"
+        android:label="@string/contact_us" />
+    <fragment
+        android:id="@+id/settingFragment"
+        tools:layout="@layout/fragment_setting"
+        android:name="co.nikavtech.anote.screens.fragments.setting.SettingFragment"
+        android:label="@string/setting" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        tools:layout="@layout/fragment_category"
+        android:name="co.nikavtech.anote.screens.fragments.category.CategoryFragment"
+        android:label="CategoryFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        tools:layout="@layout/fragment_profile"
+        android:name="co.nikavtech.anote.screens.fragments.profile.ProfileFragment"
+        android:label="@string/account" />
+</navigation>

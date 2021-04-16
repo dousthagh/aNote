@@ -1,0 +1,28 @@
+package co.nikavtech.anote.screens.fragments.about
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import co.nikavtech.anote.databinding.FragmentAboutBinding
+
+class AboutFragment:Fragment() {
+    private lateinit var binding:FragmentAboutBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        init(inflater, container)
+
+        return binding.root
+    }
+
+    private fun init(inflater: LayoutInflater,
+                     container: ViewGroup?) {
+        binding = FragmentAboutBinding.inflate(inflater, container, false)
+
+    }
+}

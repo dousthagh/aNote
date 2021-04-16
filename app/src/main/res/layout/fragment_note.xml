@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="noteModel"
+            type="co.nikavtech.anote.models.NoteDataObject" />
+
+        <variable
+            name="viewModel"
+            type="co.nikavtech.anote.screens.fragments.note.NoteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="@+id/expandableFabLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+                <EditText
+                    android:id="@+id/txt_note_title"
+                    style="@style/style_edit_note"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="@dimen/dp7"
+                    android:height="30dp"
+                    android:text="@={noteModel.title}"
+                    android:gravity="start|center"
+                    android:background="@color/light_gray"
+                    android:hint="@string/hint_enter_your_note_title"
+                    android:importantForAutofill="no" />
+
+
+                <EditText
+                    android:id="@+id/txt_note"
+                    style="@style/style_edit_note"
+                    android:hint="@string/hint_enter_your_note"
+                    android:importantForAutofill="no"
+                    android:text="@={noteModel.text}"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.nambimobile.widgets.efab.ExpandableFabLayout
+            android:id="@+id/expandableFabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.nambimobile.widgets.efab.Overlay
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.nambimobile.widgets.efab.ExpandableFab
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:backgroundTint="@color/fab_color"
+                app:backgroundTint="@color/fab_color"
+                app:efab_icon="@drawable/ic_baseline_more_vert_24"
+                app:efab_iconAnimationRotationDeg="90" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:id="@+id/fabSave"
+                app:fab_color="@color/danger"
+                app:fabCustomSize="@dimen/dp50"
+                android:layout_width="wrap_content"
+                android:onClick="@{() -> viewModel.saveNote(noteModel)}"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_baseline_save_24"
+                app:label_text="@string/save" />
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:id="@+id/fabCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_lightcategory_24"
+                app:label_text="@string/select_category" />
+
+
+            <com.nambimobile.widgets.efab.FabOption
+                android:id="@+id/fabShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_icon="@drawable/ic_baseline_share_24"
+                app:label_text="@string/share" />
+
+        </com.nambimobile.widgets.efab.ExpandableFabLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

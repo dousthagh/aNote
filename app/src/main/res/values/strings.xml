@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">aNote</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="blank_list">یادداشتی وجود ندارد.</string>
+    <string name="register">ثبت نام</string>
+    <string name="email">ایمیل</string>
+    <string name="password">رمز عبور</string>
+    <string name="login">ورود</string>
+    <string name="not_yet_register">تا کنون ثبت نام نکرده اید؟</string>
+    <string name="setting">تنظیمات</string>
+    <string name="category">دسته بندی</string>
+    <string name="account">حساب کاربری</string>
+    <string name="home">صفحه اصلی</string>
+    <string name="hint_enter_your_note">متن مورد نظر خود را بنویسید</string>
+    <string name="new_note">یادداشت جدید</string>
+    <string name="save">ذخیره</string>
+    <string name="share">اشتراک گذاری</string>
+    <string name="about_us">درباره ما</string>
+    <string name="contact_us">تماس با ما</string>
+    <string name="save_note_successfully">یادداشت مورد نظر با موفقیت ذخیره شد.</string>
+    <string name="save_note_error">متاسفانه خطایی در ثبت یادداشت اتفاق افتاده است.</string>
+    <string name="hint_enter_your_note_title">عنوان یادداشت را وارد کنید</string>
+    <string name="select_category">انتخاب گروه</string>
+
+    <string name="inserted_date">تاریخ ثبت: %1$d</string>
+</resources>
