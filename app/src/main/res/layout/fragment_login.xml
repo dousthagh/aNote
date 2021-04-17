@@ -6,7 +6,7 @@
     <data>
         <variable
             name="userModel"
-            type="co.nikavtech.anote.models.UserModel" />
+            type="co.nikavtech.anote.entities.UserModel" />
 
         <variable
             name="viewModel"

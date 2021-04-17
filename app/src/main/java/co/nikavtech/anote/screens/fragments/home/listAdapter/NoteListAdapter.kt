@@ -6,7 +6,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.R
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 
 /**
  * @author Naveen T P

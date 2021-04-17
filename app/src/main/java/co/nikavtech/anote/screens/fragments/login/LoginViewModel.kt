@@ -3,7 +3,7 @@ package co.nikavtech.anote.screens.fragments.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.nikavtech.anote.models.UserModel
+import co.nikavtech.anote.database.entities.UserModel
 import co.nikavtech.anote.services.repository.user.LoginService
 
 class LoginViewModel(ctrUserName: String?, ctrPassword: String?) : ViewModel() {

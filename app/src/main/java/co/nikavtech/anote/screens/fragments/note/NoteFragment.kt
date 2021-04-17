@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import co.nikavtech.anote.R
 import co.nikavtech.anote.databinding.FragmentNoteBinding
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 import co.nikavtech.anote.ui.BottomSheetDialogFragment
 
 class NoteFragment : Fragment() {

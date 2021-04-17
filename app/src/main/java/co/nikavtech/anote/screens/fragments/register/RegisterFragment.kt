@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import co.nikavtech.anote.databinding.FragmentRegisterBinding
-import co.nikavtech.anote.models.UserModel
+import co.nikavtech.anote.database.entities.UserModel
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding

@@ -1,7 +1,7 @@
 package co.nikavtech.anote.services.repository.category
 
 import co.nikavtech.anote.services.repository.category.dataClass.CategoryDataObject
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 
 class LoadCategoryService {
     fun getCategory(id: Int): CategoryDataObject {

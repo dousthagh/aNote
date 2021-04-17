@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
 import co.nikavtech.anote.databinding.FragmentHomeBinding
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteItemEvent
 import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteListAdapter
 

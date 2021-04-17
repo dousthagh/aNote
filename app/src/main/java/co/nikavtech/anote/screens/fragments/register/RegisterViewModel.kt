@@ -3,7 +3,7 @@ package co.nikavtech.anote.screens.fragments.register
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.nikavtech.anote.models.UserModel
+import co.nikavtech.anote.database.entities.UserModel
 import co.nikavtech.anote.services.repository.user.RegisterService
 
 class RegisterViewModel : ViewModel() {

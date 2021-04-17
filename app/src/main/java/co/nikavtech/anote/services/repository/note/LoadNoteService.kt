@@ -1,6 +1,6 @@
 package co.nikavtech.anote.services.repository.note
 
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 
 class LoadNoteService {
     fun loadAllNotes():List<NoteDataObject>{

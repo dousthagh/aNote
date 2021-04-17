@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import co.nikavtech.anote.databinding.FragmentLoginBinding
-import co.nikavtech.anote.models.UserModel
+import co.nikavtech.anote.database.entities.UserModel
 import co.nikavtech.anote.screens.activities.Main.MainActivity
 
 class LoginFragment : Fragment() {

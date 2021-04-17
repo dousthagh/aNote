@@ -3,7 +3,7 @@ package co.nikavtech.anote.screens.fragments.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 import co.nikavtech.anote.services.repository.note.LoadNoteService
 
 class HomeViewModel : ViewModel() {

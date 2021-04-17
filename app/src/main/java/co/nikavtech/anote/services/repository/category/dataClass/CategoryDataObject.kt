@@ -1,6 +1,6 @@
 package co.nikavtech.anote.services.repository.category.dataClass
 
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 
 data class CategoryDataObject(
     private var _id:Int,

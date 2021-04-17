@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.R
-import co.nikavtech.anote.models.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteDataObject
 
 class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(noteDataObject: NoteDataObject, listener: NoteItemEvent) {

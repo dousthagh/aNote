@@ -3,8 +3,8 @@ package co.nikavtech.anote.screens.fragments.note
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.nikavtech.anote.models.NoteDataObject
-import co.nikavtech.anote.models.SaveNoteService
+import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.SaveNoteService
 import co.nikavtech.anote.services.repository.category.LoadCategoryService
 
 class NoteViewModel : ViewModel() {
