@@ -11,8 +11,7 @@ class LoadCategoryService {
                     _id = 1,
                     _title = "note_1",
                     _text = "hello my dear user, this is sample note",
-                    _insertedDate = "2021-04-08",
-                    _categoryId = 2
+//                    _insertedDate = "2021-04-08",
                 )
             )
         )

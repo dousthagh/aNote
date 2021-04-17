@@ -16,8 +16,6 @@ data class NoteDataObject(
     private var _text: String? = null,
     @ColumnInfo(name = "created_date")
     private var _insertedDate: Long = System.currentTimeMillis(),
-    @ColumnInfo(name = "category_id")
-    private var _categoryId: Int? = null
 ) {
     var id: Int? = _id
         get() = field
@@ -36,11 +34,5 @@ data class NoteDataObject(
         }
     var insertedDate: Long = _insertedDate
         get() = field
-
-    var categoryId: Int? = _categoryId
-        get() = field
-        set(value) {
-            field = value
-        }
 
 }

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="noteModel"
-            type="co.nikavtech.anote.entities.NoteDataObject" />
+            type="co.nikavtech.anote.database.entities.NoteDataObject" />
 
         <variable
             name="viewModel"

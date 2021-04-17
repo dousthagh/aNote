@@ -14,6 +14,6 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         lblTitleView.setText(noteDataObject.title)
         lblTextView.setText(noteDataObject.text)
-        lblInsertedDateView.setText(noteDataObject.insertedDate)
+//        lblInsertedDateView.setText(noteDataObject.insertedDate)
     }
 }
