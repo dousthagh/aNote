@@ -1,11 +1,16 @@
 package co.nikavtech.anote.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "users")
 data class UserModel(
-    private var id: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    private var id: Long? = null,
     private var email: String? = null,
     private var password: String? = null
 ) {
-    var _id: Int? = id
+    var _id: Long? = id
         get() = field
         set(value) {
             field = value

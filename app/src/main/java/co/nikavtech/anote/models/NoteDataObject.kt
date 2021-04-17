@@ -1,10 +1,21 @@
 package co.nikavtech.anote.models
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "notes")
 data class NoteDataObject(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     private var _id: Int? = null,
+    @ColumnInfo(name = "title")
     private var _title: String? = null,
+    @ColumnInfo(name = "text")
     private var _text: String? = null,
-    private var _insertedDate: String? = "2021-04-10",
+    @ColumnInfo(name = "created_date")
+    private var _insertedDate: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "category_id")
     private var _categoryId: Int? = null
 ) {
     var id: Int? = _id
@@ -22,11 +33,9 @@ data class NoteDataObject(
         set(value) {
             field = value
         }
-    var insertedDate: String? = _insertedDate
+    var insertedDate: Long = _insertedDate
         get() = field
-        set(value) {
-            field = value
-        }
+
     var categoryId: Int? = _categoryId
         get() = field
         set(value) {
