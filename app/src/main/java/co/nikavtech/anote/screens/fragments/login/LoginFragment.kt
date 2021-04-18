@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import co.nikavtech.anote.databinding.FragmentLoginBinding
+import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.entities.UserModel
+import co.nikavtech.anote.databinding.FragmentLoginBinding
 import co.nikavtech.anote.screens.activities.Main.MainActivity
 
 class LoginFragment : Fragment() {
@@ -24,7 +24,7 @@ class LoginFragment : Fragment() {
     ): View? {
         init(inflater, container)
 
-        loginViewModel.loginIsSuccess.observe(this, Observer {
+        loginViewModel.loginIsSuccess.observe(viewLifecycleOwner, {
             it?.let {
                 if (it) {
                     startActivity(Intent(activity?.applicationContext, MainActivity::class.java))
@@ -61,12 +61,15 @@ class LoginFragment : Fragment() {
         }
 
 
+        binding.userModel = UserModel(email = userName, password = password)
+        val application = requireNotNull(this.activity).application
+        val dataSource = NoteDatabase.getInstance(application)
+
         loginViewModel = ViewModelProvider(
             this,
-            LoginViewModelFactory(userName, password)
+            LoginViewModelFactory(dataSource.userDao, application)
         ).get(LoginViewModel::class.java)
 
-        binding.userModel = UserModel(email = userName, password = password)
         binding.viewModel = loginViewModel
         binding.lifecycleOwner = this
     }

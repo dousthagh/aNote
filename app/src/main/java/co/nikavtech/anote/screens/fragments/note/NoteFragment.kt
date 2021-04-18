@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import co.nikavtech.anote.R
+import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.databinding.FragmentNoteBinding
 import co.nikavtech.anote.database.entities.NoteDataObject
 import co.nikavtech.anote.ui.BottomSheetDialogFragment
@@ -28,7 +29,7 @@ class NoteFragment : Fragment() {
         init(inflater, container)
 
 //region observation links
-        noteViewModel.isSuccessSaveNote.observe(this, Observer {
+        noteViewModel.isSuccessSaveNote.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it) {
                     Toast.makeText(
@@ -63,7 +64,7 @@ class NoteFragment : Fragment() {
     }
 
     private fun getShareIntent(): Intent {
-        val text = binding.noteModel!!.text
+        val text = binding.noteModel!!._text
         return ShareCompat.IntentBuilder.from(activity!!)
             .setText(text)
             .setType("text/plain")
@@ -75,8 +76,12 @@ class NoteFragment : Fragment() {
         container: ViewGroup?
     ) {
         binding = FragmentNoteBinding.inflate(inflater, container, false)
-        noteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+        val application =  requireNotNull(this.activity).application
+        val dataSource = NoteDatabase.getInstance(application)
+        val factory = NoteViewModelFactory(dataSource.noteDao, application)
+        noteViewModel = ViewModelProvider(this, factory).get(NoteViewModel::class.java)
 
+        binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
         binding.noteModel = NoteDataObject()
 

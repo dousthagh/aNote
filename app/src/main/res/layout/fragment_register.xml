@@ -51,8 +51,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_email"
-                        style="@style/medium_size_input"
-                        android:text="@={userModel._email}" />
+                        style="@style/medium_size_input" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,8 +65,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@id/txt_password"
                         style="@style/medium_size_input"
-                        android:inputType="textPassword"
-                        android:text="@={userModel._password}">
+                        android:inputType="textPassword">
 
                     </com.google.android.material.textfield.TextInputEditText>
 

@@ -36,7 +36,6 @@
                     android:layout_height="50dp"
                     android:layout_marginBottom="@dimen/dp7"
                     android:height="30dp"
-                    android:text="@={noteModel.title}"
                     android:gravity="start|center"
                     android:background="@color/light_gray"
                     android:hint="@string/hint_enter_your_note_title"
@@ -48,7 +47,6 @@
                     style="@style/style_edit_note"
                     android:hint="@string/hint_enter_your_note"
                     android:importantForAutofill="no"
-                    android:text="@={noteModel.text}"
                     android:inputType="textMultiLine" />
             </LinearLayout>
 

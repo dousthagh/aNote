@@ -36,12 +36,12 @@ class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewH
                     noteList
                 } else {
                     val filteredList = arrayListOf<NoteDataObject>()
-                    for (row in noteList) {
-                        if (row.title?.toLowerCase()!!.contains(charString.toLowerCase())
-                            || row.text!!.contains(charString.toLowerCase())) {
-                            filteredList.add(row)
-                        }
-                    }
+//                    for (row in noteList) {
+//                        if (row.title?.toLowerCase()!!.contains(charString.toLowerCase())
+//                            || row.text!!.contains(charString.toLowerCase())) {
+//                            filteredList.add(row)
+//                        }
+//                    }
                     filteredList
                 }
 

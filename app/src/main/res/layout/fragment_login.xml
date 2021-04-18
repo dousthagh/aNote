@@ -52,7 +52,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_email"
-                        android:text="@={userModel._email}"
+                        android:text="@={userModel.email}"
                         style="@style/medium_size_input" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -61,13 +61,13 @@
                     android:id="@+id/password"
                     style="@style/medium_input_container"
                     android:hint="@string/password"
+                    android:text="@={userModel.password}"
                     app:passwordToggleEnabled="true"
                     tools:ignore="MissingConstraints">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txt_password"
                         style="@style/medium_size_input"
-                        android:text="@={userModel._password}"
                         android:inputType="textPassword">
 
                     </com.google.android.material.textfield.TextInputEditText>

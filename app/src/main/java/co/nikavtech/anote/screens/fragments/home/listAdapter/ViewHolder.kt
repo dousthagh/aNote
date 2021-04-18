@@ -12,8 +12,8 @@ class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val lblTextView = itemView.findViewById<TextView>(R.id.lbl_note_item_text)
         val lblInsertedDateView = itemView.findViewById<TextView>(R.id.lbl_note_item_inserted_date)
 
-        lblTitleView.setText(noteDataObject.title)
-        lblTextView.setText(noteDataObject.text)
+        lblTitleView.setText(noteDataObject._title)
+        lblTextView.setText(noteDataObject._text)
 //        lblInsertedDateView.setText(noteDataObject.insertedDate)
     }
 }
