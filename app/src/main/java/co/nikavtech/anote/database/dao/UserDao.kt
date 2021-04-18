@@ -10,7 +10,7 @@ interface UserDao {
 
     @Update
     fun update(User: UserModel)
-//
-//    @Query("select * from users where email = :email and password = :password")
-//    fun login(email:String, password:String)
+
+    @Query("select * from users where email = :email and password = :password")
+    fun login(email:String, password:String) : UserModel?
 }
