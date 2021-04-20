@@ -1,6 +1,7 @@
 package co.nikavtech.anote.database.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import co.nikavtech.anote.database.entities.NoteDataObject
 

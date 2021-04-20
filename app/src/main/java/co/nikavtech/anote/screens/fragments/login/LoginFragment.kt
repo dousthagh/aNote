@@ -24,20 +24,18 @@ class LoginFragment : Fragment() {
     ): View? {
         init(inflater, container)
 
-        loginViewModel.loginIsSuccess.observe(viewLifecycleOwner, {
-            it?.let {
-                if (it) {
-                    startActivity(Intent(activity?.applicationContext, MainActivity::class.java))
-                    activity?.finish()
-                } else {
-                    Toast.makeText(
-                        context,
-                        "نام کاربری و کلمه عبور اشتباه می باشد.",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                loginViewModel.setToNullIsSuccessLogin()
+        loginViewModel.loginUserModel.observe(viewLifecycleOwner, {
+            if (it != null && it.isCorrect()) {
+                startActivity(Intent(activity?.applicationContext, MainActivity::class.java))
+                activity?.finish()
+            } else {
+                Toast.makeText(
+                    context,
+                    "نام کاربری و کلمه عبور اشتباه می باشد.",
+                    Toast.LENGTH_LONG
+                ).show()
             }
+//            loginViewModel.setToNullIsSuccessLogin()
         })
 
 

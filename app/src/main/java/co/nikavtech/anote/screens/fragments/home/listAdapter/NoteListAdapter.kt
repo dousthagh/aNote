@@ -8,10 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.entities.NoteDataObject
 
-/**
- * @author Naveen T P
- * @since 08/11/18
- */
 class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewHolder>(), Filterable {
     private var noteList: List<NoteDataObject> = arrayListOf()
     private var filteredNoteList: List<NoteDataObject> = arrayListOf()
@@ -36,12 +32,12 @@ class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewH
                     noteList
                 } else {
                     val filteredList = arrayListOf<NoteDataObject>()
-//                    for (row in noteList) {
-//                        if (row.title?.toLowerCase()!!.contains(charString.toLowerCase())
-//                            || row.text!!.contains(charString.toLowerCase())) {
-//                            filteredList.add(row)
-//                        }
-//                    }
+                    for (row in noteList) {
+                        if (row._title?.toLowerCase()!!.contains(charString.toLowerCase())
+                            || row._text!!.contains(charString.toLowerCase())) {
+                            filteredList.add(row)
+                        }
+                    }
                     filteredList
                 }
 

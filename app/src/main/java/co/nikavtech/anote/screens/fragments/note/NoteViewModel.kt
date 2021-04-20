@@ -5,15 +5,16 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import co.nikavtech.anote.base.BaseViewModel
 import co.nikavtech.anote.database.dao.NoteDao
 import co.nikavtech.anote.database.entities.NoteDataObject
 import co.nikavtech.anote.database.entities.SaveNoteService
 import co.nikavtech.anote.services.repository.category.LoadCategoryService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class NoteViewModel(noteDao: NoteDao, application: Application) : AndroidViewModel(application) {
-    private var saveNoteServiceService: SaveNoteService = SaveNoteService()
-    private lateinit var loadCategoryService: LoadCategoryService
-
+class NoteViewModel(val noteDao: NoteDao, application: Application) : BaseViewModel(application) {
     private val _isSuccessSaveNote = MutableLiveData<Boolean>()
     val isSuccessSaveNote: LiveData<Boolean>
         get() = _isSuccessSaveNote
@@ -22,13 +23,19 @@ class NoteViewModel(noteDao: NoteDao, application: Application) : AndroidViewMod
 
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun saveNote(noteDataObject: NoteDataObject) {
+        uiScope.launch{
+            _isSuccessSaveNote.value = suspendSaveNote(noteDataObject)
+        }
     }
 
-    fun saveNote(noteDataObject: NoteDataObject) {
-        _isSuccessSaveNote.value = saveNoteServiceService.execute(noteDataObject)
+    private suspend fun suspendSaveNote(noteDataObject: NoteDataObject): Boolean? {
+        return withContext(Dispatchers.IO){
+            noteDao.insert(noteDataObject)
+            true
+        }
     }
+
 
     fun resetISuccessSaveNote(){
         _isSuccessSaveNote.postValue(null)

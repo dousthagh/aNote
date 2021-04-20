@@ -32,22 +32,19 @@
 
                 <EditText
                     android:id="@+id/txt_note_title"
-                    style="@style/style_edit_note"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="@dimen/dp7"
-                    android:height="30dp"
-                    android:gravity="start|center"
-                    android:background="@color/light_gray"
+                    style="@style/note_title"
+                    android:text="@={noteModel._title}"
                     android:hint="@string/hint_enter_your_note_title"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:inputType="textPersonName" />
 
 
                 <EditText
                     android:id="@+id/txt_note"
-                    style="@style/style_edit_note"
+                    style="@style/note_text"
+                    android:text="@={noteModel._text}"
                     android:hint="@string/hint_enter_your_note"
-                    android:importantForAutofill="no"
-                    android:inputType="textMultiLine" />
+                    android:importantForAutofill="no" />
             </LinearLayout>
 
 

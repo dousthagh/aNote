@@ -3,37 +3,36 @@ package co.nikavtech.anote.screens.fragments.login
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import co.nikavtech.anote.base.BaseViewModel
 import co.nikavtech.anote.database.dao.UserDao
 import co.nikavtech.anote.database.entities.UserModel
-import co.nikavtech.anote.services.repository.user.LoginService
+import kotlinx.coroutines.*
 
-class LoginViewModel(userDao: UserDao, application: Application) : ViewModel() {
-    private var loginService: LoginService = LoginService()
+class LoginViewModel(private val userDao: UserDao, application: Application) :
+    BaseViewModel(application) {
 
-    //region live data
-    private val _loginIsSuccess = MutableLiveData<Boolean>()
-    val loginIsSuccess: LiveData<Boolean>
-        get() = _loginIsSuccess
+    //region variables
+    private val _loginUserModel = MutableLiveData<UserModel>()
+    val loginUserModel: LiveData<UserModel>
+        get() = _loginUserModel
     //endregion
 
     init {
     }
 
-    override fun onCleared() {
-        super.onCleared()
-    }
 
     fun doLogin(userModel: UserModel) {
-        userModel.email = userModel.email
-        _loginIsSuccess.value = loginService.execute(userModel)
+        if (userModel.isCorrect()) {
+            uiScope.launch {
+                _loginUserModel.value = suspendLogin(userModel)
+            }
+        }
     }
 
-    fun resetIsSuccessLogin() {
-        _loginIsSuccess.postValue(false)
+    private suspend fun suspendLogin(userModel: UserModel): UserModel? {
+        return withContext(Dispatchers.IO) {
+            userDao.login(userModel.email!!, userModel.password!!)
+        }
     }
 
-    fun setToNullIsSuccessLogin() {
-        _loginIsSuccess.postValue(null)
-    }
 }

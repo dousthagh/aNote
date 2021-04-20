@@ -4,30 +4,33 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import co.nikavtech.anote.base.BaseViewModel
 import co.nikavtech.anote.database.dao.UserDao
 import co.nikavtech.anote.database.entities.UserModel
-import co.nikavtech.anote.services.repository.user.RegisterService
+import kotlinx.coroutines.*
 
-class RegisterViewModel(userDao: UserDao, application: Application) : AndroidViewModel(application) {
-    private lateinit var registerService: RegisterService
-
+class RegisterViewModel(val userDao: UserDao, application: Application) : BaseViewModel(application) {
+    //region variables
 
     private val _isSuccessRegister = MutableLiveData<Boolean>()
     val isSuccessRegister: LiveData<Boolean>
         get() = _isSuccessRegister
 
-    init {
-        registerService = RegisterService()
+    //endregion
 
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-    }
 
     fun doRegister(userModel: UserModel) {
-        _isSuccessRegister.value = registerService.register(userModel)
+        uiScope.launch {
+            _isSuccessRegister.value = suspendDoRegister(userModel)
+        }
+
+    }
+
+    private suspend fun suspendDoRegister(userModel: UserModel): Boolean {
+        return withContext(Dispatchers.IO){
+            userDao.insert(userModel)
+            true
+        }
     }
 
     fun resetISuccessRegister(){

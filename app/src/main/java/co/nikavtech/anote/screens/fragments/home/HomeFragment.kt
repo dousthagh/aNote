@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
-import co.nikavtech.anote.databinding.FragmentHomeBinding
+import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.databinding.FragmentHomeBinding
 import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteItemEvent
 import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteListAdapter
 
@@ -30,8 +31,8 @@ class HomeFragment : Fragment(), NoteItemEvent {
 
         settingUpRecyclerView()
 
-        homeViewModel.notes.observe(this, Observer { notes ->
-            if (notes.size > 0) {
+        homeViewModel.notes.observe(viewLifecycleOwner, { notes ->
+            if (notes != null) {
                 toggleBlankListItems(View.GONE)
                 noteListAdapter.setAllNoteItem(notes)
             } else {
@@ -56,8 +57,14 @@ class HomeFragment : Fragment(), NoteItemEvent {
         inflater: LayoutInflater,
         container: ViewGroup?
     ) {
+        val application = requireNotNull(this.activity).application
+        val dataSource = NoteDatabase.getInstance(application)
+
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        homeViewModel =
+            ViewModelProvider(this, HomeViewModelFactory(dataSource.noteDao, application)).get(
+                HomeViewModel::class.java
+            )
     }
 
     private fun toggleBlankListItems(status: Int) {

@@ -9,7 +9,8 @@ data class UserModel(
     var id: Long? = null,
     var email: String? = null,
     var password: String? = null
-) {
-
-
+){
+    fun isCorrect():Boolean{
+        return email != null && password != null
+    }
 }

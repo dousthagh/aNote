@@ -76,4 +76,17 @@
         <item name="android:layout_height">38dp</item>
     </style>
 
+    <style name="note_title" parent="style_edit_note">
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginBottom">@dimen/dp7</item>
+        <item name="android:height">30dp</item>
+        <item name="android:gravity">start|center</item>
+        <item name="android:background">@color/light_gray</item>
+    </style>
+
+    <style name="note_text" parent="style_edit_note">
+        <item name="android:inputType">textMultiLine</item>
+    </style>
+
 </resources>

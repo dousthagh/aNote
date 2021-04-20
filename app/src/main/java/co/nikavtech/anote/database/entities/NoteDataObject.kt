@@ -11,11 +11,11 @@ data class NoteDataObject(
     @ColumnInfo(name = "id")
     var _id: Int? = null,
     @ColumnInfo(name = "title")
-    val _title: String? = null,
+    var _title: String? = null,
     @ColumnInfo(name = "text")
-    val _text: String? = null,
+    var _text: String? = null,
     @ColumnInfo(name = "created_date")
-    val _insertedDate: Long = System.currentTimeMillis(),
+    var _insertedDate: Long = System.currentTimeMillis(),
 ) {
 
 }
