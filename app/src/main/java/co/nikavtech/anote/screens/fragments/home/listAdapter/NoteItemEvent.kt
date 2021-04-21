@@ -1,8 +1,8 @@
 package co.nikavtech.anote.screens.fragments.home.listAdapter
 
-import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteEntity
 
 interface NoteItemEvent {
-    fun onDeleteClicked(noteDataObject: NoteDataObject)
-    fun onViewClicked(noteDataObject: NoteDataObject)
+    fun onDeleteClicked(noteEntity: NoteEntity)
+    fun onViewClicked(noteEntity: NoteEntity)
 }

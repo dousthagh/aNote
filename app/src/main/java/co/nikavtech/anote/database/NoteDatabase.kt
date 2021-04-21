@@ -4,15 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import co.nikavtech.anote.database.dao.CategoryDao
 import co.nikavtech.anote.database.dao.NoteDao
 import co.nikavtech.anote.database.dao.UserDao
-import co.nikavtech.anote.database.entities.NoteDataObject
-import co.nikavtech.anote.database.entities.UserModel
+import co.nikavtech.anote.database.entities.CategoryEntity
+import co.nikavtech.anote.database.entities.NoteEntity
+import co.nikavtech.anote.database.entities.UserEntity
 
-@Database(entities = [UserModel::class, NoteDataObject::class], exportSchema = false, version = 1)
+@Database(
+    entities = [UserEntity::class, NoteEntity::class, CategoryEntity::class],
+    exportSchema = false,
+    version = 2
+)
 abstract class NoteDatabase : RoomDatabase() {
     abstract val noteDao: NoteDao
     abstract val userDao: UserDao
+    abstract val categoryDao: CategoryDao
 
     companion object {
         @Volatile

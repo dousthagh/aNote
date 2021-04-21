@@ -5,15 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import co.nikavtech.anote.base.BaseViewModel
 import co.nikavtech.anote.database.dao.UserDao
-import co.nikavtech.anote.database.entities.UserModel
+import co.nikavtech.anote.database.entities.UserEntity
 import kotlinx.coroutines.*
 
 class LoginViewModel(private val userDao: UserDao, application: Application) :
     BaseViewModel(application) {
 
     //region variables
-    private val _loginUserModel = MutableLiveData<UserModel>()
-    val loginUserModel: LiveData<UserModel>
+    private val _loginUserModel = MutableLiveData<UserEntity>()
+    val loginUserModel: LiveData<UserEntity>
         get() = _loginUserModel
     //endregion
 
@@ -21,17 +21,17 @@ class LoginViewModel(private val userDao: UserDao, application: Application) :
     }
 
 
-    fun doLogin(userModel: UserModel) {
-        if (userModel.isCorrect()) {
+    fun doLogin(userEntity: UserEntity) {
+        if (userEntity.isCorrect()) {
             uiScope.launch {
-                _loginUserModel.value = suspendLogin(userModel)
+                _loginUserModel.value = suspendLogin(userEntity)
             }
         }
     }
 
-    private suspend fun suspendLogin(userModel: UserModel): UserModel? {
+    private suspend fun suspendLogin(userEntity: UserEntity): UserEntity? {
         return withContext(Dispatchers.IO) {
-            userDao.login(userModel.email!!, userModel.password!!)
+            userDao.login(userEntity.email!!, userEntity.password!!)
         }
     }
 

@@ -1,15 +1,11 @@
 package co.nikavtech.anote.screens.fragments.note
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import co.nikavtech.anote.base.BaseViewModel
 import co.nikavtech.anote.database.dao.NoteDao
-import co.nikavtech.anote.database.entities.NoteDataObject
-import co.nikavtech.anote.database.entities.SaveNoteService
-import co.nikavtech.anote.services.repository.category.LoadCategoryService
+import co.nikavtech.anote.database.entities.NoteEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,15 +19,15 @@ class NoteViewModel(val noteDao: NoteDao, application: Application) : BaseViewMo
 
     }
 
-    fun saveNote(noteDataObject: NoteDataObject) {
+    fun saveNote(noteEntity: NoteEntity) {
         uiScope.launch{
-            _isSuccessSaveNote.value = suspendSaveNote(noteDataObject)
+            _isSuccessSaveNote.value = suspendSaveNote(noteEntity)
         }
     }
 
-    private suspend fun suspendSaveNote(noteDataObject: NoteDataObject): Boolean? {
+    private suspend fun suspendSaveNote(noteEntity: NoteEntity): Boolean? {
         return withContext(Dispatchers.IO){
-            noteDao.insert(noteDataObject)
+            noteDao.insert(noteEntity)
             true
         }
     }

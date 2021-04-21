@@ -1,6 +1,7 @@
 package co.nikavtech.anote.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,9 @@ class BottomSheetDialogFragment:BottomSheetDialogFragment() {
         )
         val list = view.findViewById<ListView>(R.id.lst_category)
         val adapter = ArrayAdapter(context!!, android.R.layout.simple_list_item_1, getCategoryTitleArray())
+        list.setOnItemClickListener { parent, view, position, id ->
+            Log.d("asd", "" + id)
+        }
         list.adapter = adapter
         return view
     }

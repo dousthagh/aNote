@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
-import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteEntity
 import co.nikavtech.anote.databinding.FragmentHomeBinding
 import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteItemEvent
 import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteListAdapter
@@ -72,11 +71,11 @@ class HomeFragment : Fragment(), NoteItemEvent {
         binding.lblBlankList.visibility = status
     }
 
-    override fun onDeleteClicked(noteDataObject: NoteDataObject) {
+    override fun onDeleteClicked(noteEntity: NoteEntity) {
         TODO("Not yet implemented")
     }
 
-    override fun onViewClicked(noteDataObject: NoteDataObject) {
+    override fun onViewClicked(noteEntity: NoteEntity) {
         TODO("Not yet implemented")
     }
 

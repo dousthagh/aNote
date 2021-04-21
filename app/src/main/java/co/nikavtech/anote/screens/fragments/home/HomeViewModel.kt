@@ -4,11 +4,9 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import co.nikavtech.anote.base.BaseViewModel
-import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.dao.NoteDao
-import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteEntity
 import co.nikavtech.anote.services.repository.note.LoadNoteService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,8 +15,8 @@ import kotlinx.coroutines.withContext
 class HomeViewModel(val noteDao: NoteDao, application: Application) : BaseViewModel(application) {
     private var loadNoteService: LoadNoteService = LoadNoteService()
 
-    private var _notes = MutableLiveData<List<NoteDataObject>>()
-    val notes: LiveData<List<NoteDataObject>>
+    private var _notes = MutableLiveData<List<NoteEntity>>()
+    val notes: LiveData<List<NoteEntity>>
         get() = _notes
 
     init {
@@ -32,7 +30,7 @@ class HomeViewModel(val noteDao: NoteDao, application: Application) : BaseViewMo
         }
     }
 
-    private suspend fun suspendLoadNoteFromDatabase(): List<NoteDataObject>? {
+    private suspend fun suspendLoadNoteFromDatabase(): List<NoteEntity>? {
         return withContext(Dispatchers.IO){
             noteDao.getAll()
         }

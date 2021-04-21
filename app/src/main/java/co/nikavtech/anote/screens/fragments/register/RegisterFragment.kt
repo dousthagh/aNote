@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.databinding.FragmentRegisterBinding
-import co.nikavtech.anote.database.entities.UserModel
+import co.nikavtech.anote.database.entities.UserEntity
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
@@ -54,6 +54,6 @@ class RegisterFragment : Fragment() {
         registerViewModel = ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
         binding.lifecycleOwner = this
         binding.viewModel = registerViewModel
-        binding.userModel = UserModel()
+        binding.userModel = UserEntity()
     }
 }

@@ -1,13 +1,13 @@
 package co.nikavtech.anote.services.repository.category
 
 import co.nikavtech.anote.services.repository.category.dataClass.CategoryDataObject
-import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteEntity
 
 class LoadCategoryService {
     fun getCategory(id: Int): CategoryDataObject {
         return CategoryDataObject(
             2, _title = "category_2", _notes = listOf(
-                NoteDataObject(
+                NoteEntity(
                     _id = 1,
                     _title = "note_1",
                     _text = "hello my dear user, this is sample note",

@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.databinding.FragmentNoteBinding
-import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteEntity
 import co.nikavtech.anote.ui.BottomSheetDialogFragment
 
 class NoteFragment : Fragment() {
@@ -83,7 +83,7 @@ class NoteFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
-        binding.noteModel = NoteDataObject()
+        binding.noteModel = NoteEntity()
 
         if (getShareIntent().resolveActivity(activity!!.packageManager) == null) {
             binding.fabShare.visibility = View.GONE

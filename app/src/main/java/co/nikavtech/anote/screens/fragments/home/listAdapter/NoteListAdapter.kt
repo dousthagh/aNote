@@ -6,11 +6,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.R
-import co.nikavtech.anote.database.entities.NoteDataObject
+import co.nikavtech.anote.database.entities.NoteEntity
 
 class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewHolder>(), Filterable {
-    private var noteList: List<NoteDataObject> = arrayListOf()
-    private var filteredNoteList: List<NoteDataObject> = arrayListOf()
+    private var noteList: List<NoteEntity> = arrayListOf()
+    private var filteredNoteList: List<NoteEntity> = arrayListOf()
     private val listener: NoteItemEvent = noteItemEvent
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +31,7 @@ class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewH
                 filteredNoteList = if (charString.isEmpty()) {
                     noteList
                 } else {
-                    val filteredList = arrayListOf<NoteDataObject>()
+                    val filteredList = arrayListOf<NoteEntity>()
                     for (row in noteList) {
                         if (row._title?.toLowerCase()!!.contains(charString.toLowerCase())
                             || row._text!!.contains(charString.toLowerCase())) {
@@ -47,14 +47,14 @@ class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewH
             }
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-                filteredNoteList = p1?.values as List<NoteDataObject>
+                filteredNoteList = p1?.values as List<NoteEntity>
                 notifyDataSetChanged()
             }
 
         }
     }
 
-    fun setAllNoteItem(noteItems:List<NoteDataObject>){
+    fun setAllNoteItem(noteItems:List<NoteEntity>){
         this.noteList = noteItems
         this.filteredNoteList = noteItems
         notifyDataSetChanged()

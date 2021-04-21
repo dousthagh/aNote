@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import co.nikavtech.anote.database.NoteDatabase
-import co.nikavtech.anote.database.entities.UserModel
+import co.nikavtech.anote.database.entities.UserEntity
 import co.nikavtech.anote.databinding.FragmentLoginBinding
 import co.nikavtech.anote.screens.activities.Main.MainActivity
 
@@ -35,7 +35,6 @@ class LoginFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-//            loginViewModel.setToNullIsSuccessLogin()
         })
 
 
@@ -59,7 +58,7 @@ class LoginFragment : Fragment() {
         }
 
 
-        binding.userModel = UserModel(email = userName, password = password)
+        binding.userModel = UserEntity(email = userName, password = password)
         val application = requireNotNull(this.activity).application
         val dataSource = NoteDatabase.getInstance(application)
 
