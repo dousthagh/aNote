@@ -25,7 +25,7 @@ class HomeViewModel(val noteDao: NoteDao, application: Application) : BaseViewMo
         fetchNotes()
     }
 
-    private fun fetchNotes() {
+    fun fetchNotes() {
         uiScope.launch {
             _notes.value = suspendLoadNoteFromDatabase()
             Log.d("asd", _notes.value.toString())
@@ -34,7 +34,7 @@ class HomeViewModel(val noteDao: NoteDao, application: Application) : BaseViewMo
 
     private suspend fun suspendLoadNoteFromDatabase(): List<NoteDataObject>? {
         return withContext(Dispatchers.IO){
-            noteDao.getAll().value
+            noteDao.getAll()
         }
     }
 

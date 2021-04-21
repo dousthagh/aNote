@@ -16,6 +16,4 @@ data class NoteDataObject(
     var _text: String? = null,
     @ColumnInfo(name = "created_date")
     var _insertedDate: Long = System.currentTimeMillis(),
-) {
-
-}
+)

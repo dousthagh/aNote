@@ -79,4 +79,9 @@ class HomeFragment : Fragment(), NoteItemEvent {
     override fun onViewClicked(noteDataObject: NoteDataObject) {
         TODO("Not yet implemented")
     }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.fetchNotes()
+    }
 }
