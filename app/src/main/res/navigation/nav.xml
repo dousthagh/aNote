@@ -39,7 +39,7 @@
         android:id="@+id/categoryFragment"
         tools:layout="@layout/fragment_category"
         android:name="co.nikavtech.anote.screens.fragments.category.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:label="@string/category" />
     <fragment
         android:id="@+id/accountFragment"
         tools:layout="@layout/fragment_profile"

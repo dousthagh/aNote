@@ -9,7 +9,7 @@ import java.lang.IllegalArgumentException
 
 class LoginViewModelFactory(private val userDao: UserDao, private val application: Application):ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(CategoryViewModel::class.java)){
+        if(modelClass.isAssignableFrom(LoginViewModel::class.java)){
             return LoginViewModel(userDao, application) as T
         }
 

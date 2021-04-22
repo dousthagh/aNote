@@ -1,12 +1,12 @@
 package co.nikavtech.anote.screens.fragments.category
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.databinding.FragmentCategoryBinding
 import co.nikavtech.anote.services.repository.category.LoadCategoryService
@@ -22,7 +22,14 @@ class CategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         init(inflater, container)
-        Log.d("categories", loadCategoryService.loadAllCategory().toString())
+
+        binding.fabShowSaveContainer.setOnClickListener {
+            val saveCategoryFragment = SaveCategoryFragment(null)
+            saveCategoryFragment.show(
+                requireNotNull(this.activity).supportFragmentManager,
+                saveCategoryFragment.javaClass.simpleName
+            )
+        }
 
         return binding.root
     }
@@ -40,5 +47,12 @@ class CategoryFragment : Fragment() {
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
         loadCategoryService = LoadCategoryService()
+    }
+
+    private fun prepareRecyclerView() {
+        val linearLayoutManager =
+            LinearLayoutManager(requireNotNull(this.activity).applicationContext)
+        binding.rvCategories.layoutManager = linearLayoutManager
+        binding.rvCategories.setHasFixedSize(true)
     }
 }

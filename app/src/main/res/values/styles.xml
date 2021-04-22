@@ -89,4 +89,13 @@
         <item name="android:inputType">textMultiLine</item>
     </style>
 
+    <style name="style_category_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/iran_sans_bold</item>
+        <item name="android:padding">@dimen/list_item_title_padding</item>
+    </style>
+
 </resources>

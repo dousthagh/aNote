@@ -1,5 +1,6 @@
 package co.nikavtech.anote.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import co.nikavtech.anote.database.entities.CategoryEntity
 
@@ -16,5 +17,5 @@ interface CategoryDao {
     fun delete(categoryEntity: CategoryEntity)
 
     @Query("select * from categories order by id desc")
-    fun getAll()
+    fun getAll() : LiveData<List<CategoryEntity>>?
 }

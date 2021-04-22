@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/large_padding"
-        android:background="@color/white"
-        tools:context=".screens.splash.SplashFragment">
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/textView2"
