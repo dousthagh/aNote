@@ -14,7 +14,7 @@ import co.nikavtech.anote.database.entities.UserEntity
 @Database(
     entities = [UserEntity::class, NoteEntity::class, CategoryEntity::class],
     exportSchema = false,
-    version = 2
+    version = 1
 )
 abstract class NoteDatabase : RoomDatabase() {
     abstract val noteDao: NoteDao
@@ -25,6 +25,7 @@ abstract class NoteDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: NoteDatabase? = null
 
+
         fun getInstance(context: Context): NoteDatabase {
             synchronized(this) {
                 var instance = INSTANCE
@@ -33,7 +34,8 @@ abstract class NoteDatabase : RoomDatabase() {
                         context.applicationContext,
                         NoteDatabase::class.java,
                         "db_note"
-                    ).build()
+                    )
+                        .build()
                 }
                 return instance
             }

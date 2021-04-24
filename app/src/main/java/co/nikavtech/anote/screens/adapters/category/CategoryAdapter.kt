@@ -3,6 +3,7 @@ package co.nikavtech.anote.screens.adapters.category
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -41,7 +42,9 @@ class CategoryAdapter(var diffCallback: DiffUtil.ItemCallback<CategoryEntity?>) 
         RecyclerView.ViewHolder(itemView) {
 
         internal fun Bind(category: CategoryEntity?) {
-            //Todo set text for each item
+            if (category != null) {
+                itemView.findViewById<TextView>(R.id.tv_category_title).text = category.title
+            }
         }
 
         init {
@@ -54,7 +57,7 @@ class CategoryAdapter(var diffCallback: DiffUtil.ItemCallback<CategoryEntity?>) 
     }
 
     companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<CategoryEntity?> =
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<CategoryEntity?> =
             object : DiffUtil.ItemCallback<CategoryEntity?>() {
                 override fun areItemsTheSame(oldItem: CategoryEntity, newItem: CategoryEntity): Boolean {
                     return oldItem.id === newItem.id

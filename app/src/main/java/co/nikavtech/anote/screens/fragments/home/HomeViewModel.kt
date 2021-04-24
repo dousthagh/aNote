@@ -26,7 +26,6 @@ class HomeViewModel(val noteDao: NoteDao, application: Application) : BaseViewMo
     fun fetchNotes() {
         uiScope.launch {
             _notes.value = suspendLoadNoteFromDatabase()
-            Log.d("asd", _notes.value.toString())
         }
     }
 

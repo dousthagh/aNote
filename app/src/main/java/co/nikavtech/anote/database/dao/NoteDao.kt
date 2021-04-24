@@ -1,22 +1,15 @@
 package co.nikavtech.anote.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
 import co.nikavtech.anote.database.entities.NoteEntity
 
 @Dao
-interface NoteDao {
-    @Insert
-    fun insert(noteEntity: NoteEntity)
-
-    @Update
-    fun update(noteEntity: NoteEntity)
-
-    @Delete
-    fun delete(noteEntity: NoteEntity)
+interface NoteDao : BaseDao<NoteEntity> {
 
     @Query("select * from notes order by id desc")
-    fun getAll() : List<NoteEntity>
+    fun getAll(): List<NoteEntity>
 
     @Query("select * from notes where id = :id")
-    fun getNote(id:Long) : NoteEntity
+    fun getNote(id: Long): NoteEntity
 }

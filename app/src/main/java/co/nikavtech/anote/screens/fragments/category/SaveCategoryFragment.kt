@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.entities.CategoryEntity
@@ -32,6 +33,7 @@ class SaveCategoryFragment(val categoryEntity: CategoryEntity?) : BottomSheetDia
             else
                 newCategoryEntity?.let { it1 -> viewModel.insert(it1) }
 
+            dismiss()
         }
         return binding.root
     }
@@ -44,7 +46,7 @@ class SaveCategoryFragment(val categoryEntity: CategoryEntity?) : BottomSheetDia
         val application = requireNotNull(this.activity).application
         val dataSource = NoteDatabase.getInstance(application)
         val factory = CategoryViewModelFactory(dataSource.categoryDao, application)
-        viewModel = ViewModelProvider(this, factory).get(CategoryViewModel::class.java)
+        viewModel = ViewModelProvider(activity!!, factory).get(CategoryViewModel::class.java)
     }
 
     private fun prepareView() {
