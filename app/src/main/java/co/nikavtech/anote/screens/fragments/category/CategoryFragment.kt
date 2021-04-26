@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.database.NoteDatabase
-import co.nikavtech.anote.database.entities.CategoryEntity
 import co.nikavtech.anote.databinding.FragmentCategoryBinding
 import co.nikavtech.anote.screens.adapters.category.CategoryAdapter
 import co.nikavtech.anote.services.repository.category.LoadCategoryService
@@ -50,11 +49,11 @@ class CategoryFragment : Fragment() {
         val factory = CategoryViewModelFactory(dataSource.categoryDao, application)
 
 
-//        categoryViewModel = ViewModelProvider(activity, factory).get(CategoryViewModel::class.java)
         categoryViewModel = ViewModelProvider(activity!!, factory).get(CategoryViewModel::class.java)
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
         loadCategoryService = LoadCategoryService()
+
     }
 
     private fun prepareRecyclerView() {
@@ -65,11 +64,11 @@ class CategoryFragment : Fragment() {
 
         val categoryAdapter = CategoryAdapter(CategoryAdapter.DIFF_CALLBACK)
 
-
         categoryViewModel.allCategories?.observe(viewLifecycleOwner, {
             categoryAdapter.submitList(it)
         })
 
         binding.rvCategories.adapter = categoryAdapter
+
     }
 }

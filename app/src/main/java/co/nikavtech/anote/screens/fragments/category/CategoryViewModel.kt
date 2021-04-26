@@ -44,11 +44,12 @@ class CategoryViewModel(private val categoryDao: CategoryDao, application: Appli
         }
     }
 
-    private fun getAll() {
-        uiScope.launch {
-//            _allCategories.value = suspendGetAll()
-            allCategories = suspendGetAll()!!
-        }
+    fun getAll() {
+//        uiScope.launch {
+//            allCategories = suspendGetAll()!!
+//        }
+
+        allCategories = categoryDao.getAll()
     }
 
     private suspend fun suspendGetAll(): LiveData<List<CategoryEntity>>? {
