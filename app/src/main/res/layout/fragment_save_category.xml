@@ -19,6 +19,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tv_category_title"
+                android:singleLine="true"
+                android:maxLines="1"
                 style="@style/medium_size_input"/>
 
         </com.google.android.material.textfield.TextInputLayout>

@@ -26,7 +26,7 @@ class CategoryAdapter(var diffCallback: DiffUtil.ItemCallback<CategoryEntity?>) 
         holder.Bind(getItem(position))
     }
 
-    fun getReminderAt(position: Int): CategoryEntity? {
+    fun getCategoryAt(position: Int): CategoryEntity? {
         return getItem(position)
     }
 
@@ -35,7 +35,7 @@ class CategoryAdapter(var diffCallback: DiffUtil.ItemCallback<CategoryEntity?>) 
     }
 
     interface OnItemClickListener {
-        fun onItemClick(reminder: CategoryEntity?)
+        fun onItemClick(category: CategoryEntity?)
     }
 
     inner class CategoryAdapterViewHolder(itemView: View) :
