@@ -20,7 +20,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="@+id/expandableFabLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -33,69 +32,22 @@
                 <EditText
                     android:id="@+id/txt_note_title"
                     style="@style/note_title"
-                    android:text="@={noteModel._title}"
                     android:hint="@string/hint_enter_your_note_title"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:text="@={noteModel._title}" />
 
 
                 <EditText
                     android:id="@+id/txt_note"
                     style="@style/note_text"
-                    android:text="@={noteModel._text}"
                     android:hint="@string/hint_enter_your_note"
-                    android:importantForAutofill="no" />
+                    android:importantForAutofill="no"
+                    android:text="@={noteModel._text}" />
             </LinearLayout>
 
 
         </androidx.core.widget.NestedScrollView>
-
-
-        <com.nambimobile.widgets.efab.ExpandableFabLayout
-            android:id="@+id/expandableFabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.nambimobile.widgets.efab.Overlay
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.nambimobile.widgets.efab.ExpandableFab
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start"
-                android:layout_margin="@dimen/fab_margin"
-                android:backgroundTint="@color/fab_color"
-                app:backgroundTint="@color/fab_color"
-                app:efab_icon="@drawable/ic_baseline_more_vert_24"
-                app:efab_iconAnimationRotationDeg="90" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:id="@+id/fabSave"
-                app:fab_color="@color/danger"
-                app:fabCustomSize="@dimen/dp50"
-                android:layout_width="wrap_content"
-                android:onClick="@{() -> viewModel.saveNote(noteModel)}"
-                android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_baseline_save_24"
-                app:label_text="@string/save" />
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:id="@+id/fabCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_lightcategory_24"
-                app:label_text="@string/select_category" />
-
-
-            <com.nambimobile.widgets.efab.FabOption
-                android:id="@+id/fabShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:fab_icon="@drawable/ic_baseline_share_24"
-                app:label_text="@string/share" />
-
-        </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

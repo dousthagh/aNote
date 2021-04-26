@@ -16,11 +16,9 @@ import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.entities.CategoryEntity
 import co.nikavtech.anote.databinding.FragmentCategoryBinding
 import co.nikavtech.anote.screens.adapters.category.CategoryAdapter
-import co.nikavtech.anote.services.repository.category.LoadCategoryService
 
 class CategoryFragment : Fragment() {
     private lateinit var binding: FragmentCategoryBinding
-    private lateinit var loadCategoryService: LoadCategoryService
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var supportFragment:FragmentManager
 
@@ -57,9 +55,6 @@ class CategoryFragment : Fragment() {
         supportFragment = requireNotNull(this.activity).supportFragmentManager
         categoryViewModel = ViewModelProvider(activity!!, factory).get(CategoryViewModel::class.java)
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
-
-        loadCategoryService = LoadCategoryService()
-
     }
 
     private fun prepareRecyclerView() {

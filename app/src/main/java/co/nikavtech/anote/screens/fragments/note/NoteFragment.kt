@@ -2,9 +2,7 @@ package co.nikavtech.anote.screens.fragments.note
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +12,6 @@ import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.databinding.FragmentNoteBinding
 import co.nikavtech.anote.database.entities.NoteEntity
-import co.nikavtech.anote.ui.BottomSheetDialogFragment
 
 class NoteFragment : Fragment() {
     private lateinit var binding: FragmentNoteBinding
@@ -48,17 +45,6 @@ class NoteFragment : Fragment() {
         })
 //endregion
 
-        binding.fabShare.setOnClickListener {
-            showShareIntent()
-        }
-
-
-        binding.fabCategory.setOnClickListener {
-            BottomSheetDialogFragment().show(
-                activity?.supportFragmentManager!!,
-                "category_list_bottom_dialog"
-            )
-        }
 
         return binding.root
     }
@@ -85,13 +71,15 @@ class NoteFragment : Fragment() {
         binding.viewModel = noteViewModel
         binding.noteModel = NoteEntity()
 
-        if (getShareIntent().resolveActivity(activity!!.packageManager) == null) {
-            binding.fabShare.visibility = View.GONE
-        }
+        setHasOptionsMenu(true)
     }
 
     private fun showShareIntent() {
         startActivity(getShareIntent())
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.save_note_fragment_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 }
