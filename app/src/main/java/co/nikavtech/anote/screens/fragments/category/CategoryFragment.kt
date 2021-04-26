@@ -1,15 +1,17 @@
 package co.nikavtech.anote.screens.fragments.category
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.LEFT
+import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.entities.CategoryEntity
 import co.nikavtech.anote.databinding.FragmentCategoryBinding
@@ -73,9 +75,30 @@ class CategoryFragment : Fragment() {
             categoryAdapter.notifyDataSetChanged()
         })
 
+        binding.rvCategories.adapter = categoryAdapter
+
         categoryAdapter.setOnItemClickListener(onCategoryItemClickListener(supportFragment))
 
-        binding.rvCategories.adapter = categoryAdapter
+
+
+        ItemTouchHelper(object : SimpleCallback(0, LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                categoryAdapter.getCategoryAt(viewHolder.adapterPosition)?.let {
+                    categoryViewModel.delete(
+                        it
+                    )
+                }
+                //todo show snakbar for double check
+            }
+        }).attachToRecyclerView(binding.rvCategories)
 
     }
 
@@ -88,6 +111,6 @@ class CategoryFragment : Fragment() {
                 saveCategoryFragment.javaClass.simpleName
             )
         }
-
     }
+
 }

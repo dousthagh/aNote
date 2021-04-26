@@ -1,9 +1,7 @@
 package co.nikavtech.anote.screens.fragments.category
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import co.nikavtech.anote.base.BaseViewModel
 import co.nikavtech.anote.database.dao.CategoryDao
 import co.nikavtech.anote.database.entities.CategoryEntity
@@ -35,6 +33,18 @@ class CategoryViewModel(private val categoryDao: CategoryDao, application: Appli
     fun update(categoryEntity: CategoryEntity) {
         uiScope.launch {
             suspendUpdateCategoryTable(categoryEntity)
+        }
+    }
+
+    fun delete(categoryEntity: CategoryEntity){
+        uiScope.launch {
+            suspendDelete(categoryEntity)
+        }
+    }
+
+    private suspend fun suspendDelete(categoryEntity: CategoryEntity) {
+        withContext(Dispatchers.IO){
+            categoryDao.delete(categoryEntity)
         }
     }
 
