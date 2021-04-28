@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dp7">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/category_title_container"
@@ -19,20 +18,36 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tv_category_title"
-                android:singleLine="true"
+                style="@style/medium_size_input"
                 android:maxLines="1"
-                style="@style/medium_size_input"/>
+                android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <Button
-            android:id="@+id/btnSave"
-            style="@style/button"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="@string/save"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp70"
-            tools:ignore="MissingConstraints" />
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btnSave"
+                style="@style/button"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:text="@string/save"/>
+
+            <Button
+                android:id="@+id/btnRemove"
+                style="@style/button.small.light_danger"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/dp7"
+                android:layout_width="0dp"
+                android:text="@string/remove" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

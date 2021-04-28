@@ -26,6 +26,13 @@ class SaveCategoryFragment(val categoryEntity: CategoryEntity?) : BottomSheetDia
 
         prepareView()
 
+        binding.btnRemove.setOnClickListener {
+            if (categoryEntity != null) {
+                viewModel.delete(categoryEntity)
+                dismiss()
+            }
+        }
+
         binding.btnSave.setOnClickListener {
             val newCategoryEntity = setupCategoryEntity()
             if (categoryEntity != null)
@@ -51,7 +58,12 @@ class SaveCategoryFragment(val categoryEntity: CategoryEntity?) : BottomSheetDia
 
     private fun prepareView() {
         if (categoryEntity != null) {
+            binding.btnRemove.visibility = View.VISIBLE
             binding.tvCategoryTitle.setText(categoryEntity.title)
+        }
+        else
+        {
+            binding.btnRemove.visibility = View.GONE
         }
     }
 

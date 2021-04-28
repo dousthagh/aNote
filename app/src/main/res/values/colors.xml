@@ -21,5 +21,6 @@
 
     <color name="accent">#996A1A</color>
     <color name="danger">#9F0101</color>
+    <color name="light_danger">#CA6060</color>
     <color name="success">#4CAF50</color>
 </resources>
