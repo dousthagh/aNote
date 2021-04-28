@@ -5,10 +5,6 @@
 
     <data>
         <variable
-            name="noteModel"
-            type="co.nikavtech.anote.database.entities.NoteEntity" />
-
-        <variable
             name="viewModel"
             type="co.nikavtech.anote.screens.fragments.note.NoteViewModel" />
     </data>
@@ -29,13 +25,22 @@
                 android:orientation="vertical"
                 tools:ignore="MissingConstraints">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_selected_categories"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/dp7"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/select_category_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
                 <EditText
                     android:id="@+id/txt_note_title"
                     style="@style/note_title"
                     android:hint="@string/hint_enter_your_note_title"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
-                    android:text="@={noteModel._title}" />
+                    android:text="@={viewModel.noteTitle}" />
 
 
                 <EditText
@@ -43,7 +48,7 @@
                     style="@style/note_text"
                     android:hint="@string/hint_enter_your_note"
                     android:importantForAutofill="no"
-                    android:text="@={noteModel._text}" />
+                    android:text="@={viewModel.noteContent}" />
             </LinearLayout>
 
 

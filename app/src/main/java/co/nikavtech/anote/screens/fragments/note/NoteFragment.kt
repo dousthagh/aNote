@@ -2,16 +2,18 @@ package co.nikavtech.anote.screens.fragments.note
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
+import co.nikavtech.anote.database.entities.CategoryEntity
 import co.nikavtech.anote.databinding.FragmentNoteBinding
-import co.nikavtech.anote.database.entities.NoteEntity
+import co.nikavtech.anote.screens.adapters.category.select_categories.SelectCategoryAdapter
 
 class NoteFragment : Fragment() {
     private lateinit var binding: FragmentNoteBinding
@@ -21,12 +23,14 @@ class NoteFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         init(inflater, container)
 
+        prepareRecyclerView()
+
 //region observation links
-        noteViewModel.isSuccessSaveNote.observe(viewLifecycleOwner, Observer {
+        noteViewModel.isSuccessSaveNote.observe(viewLifecycleOwner, {
             it?.let {
                 if (it) {
                     Toast.makeText(
@@ -50,7 +54,7 @@ class NoteFragment : Fragment() {
     }
 
     private fun getShareIntent(): Intent {
-        val text = binding.noteModel!!._text
+        val text = noteViewModel.noteContent.value
         return ShareCompat.IntentBuilder.from(activity!!)
             .setText(text)
             .setType("text/plain")
@@ -62,14 +66,13 @@ class NoteFragment : Fragment() {
         container: ViewGroup?
     ) {
         binding = FragmentNoteBinding.inflate(inflater, container, false)
-        val application =  requireNotNull(this.activity).application
+        val application = requireNotNull(this.activity).application
         val dataSource = NoteDatabase.getInstance(application)
-        val factory = NoteViewModelFactory(dataSource.noteDao, application)
-        noteViewModel = ViewModelProvider(this, factory).get(NoteViewModel::class.java)
+        val factory = NoteViewModelFactory(dataSource, application)
+        noteViewModel = ViewModelProvider(activity!!, factory).get(NoteViewModel::class.java)
 
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
-        binding.noteModel = NoteEntity()
 
         setHasOptionsMenu(true)
     }
@@ -78,8 +81,53 @@ class NoteFragment : Fragment() {
         startActivity(getShareIntent())
     }
 
+    private fun prepareRecyclerView() {
+        val linearLayoutManager =
+            LinearLayoutManager(requireNotNull(this.activity).applicationContext)
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.rvSelectedCategories.layoutManager = linearLayoutManager
+
+        val categoryAdapter = SelectCategoryAdapter(SelectCategoryAdapter.DIFF_CALLBACK)
+
+
+        noteViewModel.allCategories?.observe(activity!!, {
+            categoryAdapter.submitList(it)
+            categoryAdapter.notifyDataSetChanged()
+        })
+
+        binding.rvSelectedCategories.adapter = categoryAdapter
+
+        categoryAdapter.setOnItemClickListener(object : SelectCategoryAdapter.OnItemClickListener {
+            override fun onItemClick(category: CategoryEntity?) {
+                if (category?.id != null) {
+                    noteViewModel.note.value?.categoryId = category.id!!
+                }
+            }
+        })
+    }
+
+    private fun save() {
+        noteViewModel.saveNote()
+    }
+
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.save_note_fragment_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.save -> save()
+            R.id.share -> showShareIntent()
+        }
+
+        return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        noteViewModel.getAllCategories()
+    }
+
 }
