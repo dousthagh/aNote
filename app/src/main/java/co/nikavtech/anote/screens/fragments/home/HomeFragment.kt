@@ -10,34 +10,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
-import co.nikavtech.anote.database.entities.NoteEntity
 import co.nikavtech.anote.databinding.FragmentHomeBinding
-import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteItemEvent
-import co.nikavtech.anote.screens.fragments.home.listAdapter.NoteListAdapter
+import co.nikavtech.anote.screens.adapters.note.NoteWithCategoryAdapter
 
-class HomeFragment : Fragment(), NoteItemEvent {
+class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var noteListAdapter: NoteListAdapter
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         init(inflater, container)
 
-        settingUpRecyclerView()
+        prepareRecyclerView()
 
-        homeViewModel.notes.observe(viewLifecycleOwner, { notes ->
-            if (notes != null) {
-                toggleBlankListItems(View.GONE)
-                noteListAdapter.setAllNoteItem(notes)
-            } else {
-                toggleBlankListItems(View.VISIBLE)
-            }
-        })
 
         binding.fabAdd.setOnClickListener {
             findNavController().navigate(R.id.noteFragment)
@@ -45,10 +34,17 @@ class HomeFragment : Fragment(), NoteItemEvent {
         return binding.root
     }
 
-    private fun settingUpRecyclerView() {
+    private fun prepareRecyclerView() {
         binding.rvNoteList.layoutManager = LinearLayoutManager(context)
-        noteListAdapter = NoteListAdapter(this)
-        binding.rvNoteList.adapter = noteListAdapter
+        binding.rvNoteList.setHasFixedSize(true)
+
+        val noteWithCategoryAdapter = NoteWithCategoryAdapter(NoteWithCategoryAdapter.DIFF_CALLBACK)
+        homeViewModel.notesWithCategory?.observe(viewLifecycleOwner, {
+            noteWithCategoryAdapter.submitList(it)
+            noteWithCategoryAdapter.notifyDataSetChanged()
+        })
+
+        binding.rvNoteList.adapter = noteWithCategoryAdapter
 
     }
 
@@ -71,16 +67,8 @@ class HomeFragment : Fragment(), NoteItemEvent {
         binding.lblBlankList.visibility = status
     }
 
-    override fun onDeleteClicked(noteEntity: NoteEntity) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onViewClicked(noteEntity: NoteEntity) {
-        TODO("Not yet implemented")
-    }
-
     override fun onResume() {
         super.onResume()
-        homeViewModel.fetchNotes()
+        homeViewModel.fetchNotesWithCategory()
     }
 }

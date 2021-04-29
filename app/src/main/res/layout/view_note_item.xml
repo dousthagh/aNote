@@ -16,12 +16,12 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/lbl_note_item_title"
+            android:id="@+id/tv_note_item_title"
             tools:text="title"
             style="@style/header_label_style" />
 
         <TextView
-            android:id="@+id/lbl_note_item_text"
+            android:id="@+id/tv_note_item_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -10,26 +10,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class HomeViewModel(val noteDao: NoteDao, application: Application) : BaseViewModel(application) {
+class HomeViewModel(private val noteDao: NoteDao, application: Application) : BaseViewModel(application) {
 
-    private var _notes = MutableLiveData<List<NoteWithCategoryEntity>>()
-    val notes: LiveData<List<NoteWithCategoryEntity>>
-        get() = _notes
+    var notesWithCategory: LiveData<List<NoteWithCategoryEntity>>? = null
 
     init {
-        fetchNotes()
+        fetchNotesWithCategory()
     }
 
-    fun fetchNotes() {
-        uiScope.launch {
-            _notes.value = suspendLoadNoteFromDatabase()
-        }
+    fun fetchNotesWithCategory() {
+        notesWithCategory = noteDao.getAllWithCategories()
     }
 
-    private suspend fun suspendLoadNoteFromDatabase(): List<NoteWithCategoryEntity>? {
-        return withContext(Dispatchers.IO){
-            noteDao.getAll()
-        }
-    }
+
 
 }

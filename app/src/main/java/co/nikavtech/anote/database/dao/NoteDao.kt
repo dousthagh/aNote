@@ -1,5 +1,6 @@
 package co.nikavtech.anote.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
@@ -11,7 +12,8 @@ interface NoteDao : BaseDao<NoteEntity> {
 
     @Transaction
     @Query("select * from notes order by id desc")
-    fun getAll(): List<NoteWithCategoryEntity>
+    fun getAllWithCategories(): LiveData<List<NoteWithCategoryEntity>>
+
 
     @Query("select * from notes where id = :id")
     fun getNote(id: Long): NoteEntity
