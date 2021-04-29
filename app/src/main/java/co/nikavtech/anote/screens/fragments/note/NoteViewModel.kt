@@ -11,7 +11,7 @@ import co.nikavtech.anote.database.entities.NoteEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+import java.lang.IllegalArgumentException
 
 class NoteViewModel(val database: NoteDatabase, application: Application) :
     BaseViewModel(application) {
@@ -25,7 +25,7 @@ class NoteViewModel(val database: NoteDatabase, application: Application) :
     val note: LiveData<NoteEntity>
         get() = _note
 
-    val catetgoryId = MutableLiveData<Int>()
+    val categoryId = MutableLiveData<Int>()
     val noteTitle = MutableLiveData<String>()
     val noteContent = MutableLiveData<String>()
 
@@ -34,24 +34,26 @@ class NoteViewModel(val database: NoteDatabase, application: Application) :
 
     init {
         getAllCategories()
-        catetgoryId.value = -1
+        categoryId.value = -1
     }
 
     fun saveNote() {
         try {
+            if(!isValidNoteVariables())
+                throw IllegalArgumentException("parameter is null")
+
             uiScope.launch {
                 _isSuccessSaveNote.value = suspendSaveNote(
                     NoteEntity(
-                        categoryId = catetgoryId.value!!,
+                        categoryId = categoryId.value!!,
                         _title = noteTitle.value,
                         _text = noteContent.value,
                     )
                 )
             }
-        }catch (ex:Exception){
-            Log.d("asd", ex.message.toString())
+        } catch (ex: Exception) {
+            _isSuccessSaveNote.value = false
         }
-
     }
 
     private suspend fun suspendSaveNote(noteEntity: NoteEntity): Boolean? {
@@ -71,4 +73,9 @@ class NoteViewModel(val database: NoteDatabase, application: Application) :
     }
 
 
+    private fun isValidNoteVariables(): Boolean {
+        return categoryId.value != null && noteTitle.value != null && noteContent.value != null
+    }
 }
+
+
