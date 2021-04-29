@@ -100,7 +100,7 @@ class NoteFragment : Fragment() {
         categoryAdapter.setOnItemClickListener(object : SelectCategoryAdapter.OnItemClickListener {
             override fun onItemClick(category: CategoryEntity?) {
                 if (category?.id != null) {
-                    noteViewModel.note.value?.categoryId = category.id!!
+                    noteViewModel.categoryId.value = category.id!!
                 }
             }
         })

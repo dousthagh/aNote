@@ -32,12 +32,13 @@ class SelectCategoryAdapter (var diffCallback: DiffUtil.ItemCallback<CategoryEnt
         holderSelect.itemView.setOnClickListener {
             selectedIndex = position
             notifyDataSetChanged()
+            this.listener?.onItemClick(getItem(position))
         }
         if(selectedIndex == position){
             view.findViewById<ImageView>(R.id.imgSelect).visibility = View.VISIBLE
         }
         else{
-            view.findViewById<ImageView>(R.id.imgSelect).visibility = View.INVISIBLE
+            view.findViewById<ImageView>(R.id.imgSelect).visibility = View.GONE
         }
     }
 

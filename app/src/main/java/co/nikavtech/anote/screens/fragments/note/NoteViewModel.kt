@@ -21,9 +21,6 @@ class NoteViewModel(val database: NoteDatabase, application: Application) :
     val isSuccessSaveNote: LiveData<Boolean>
         get() = _isSuccessSaveNote
 
-    private val _note = MutableLiveData<NoteEntity>()
-    val note: LiveData<NoteEntity>
-        get() = _note
 
     val categoryId = MutableLiveData<Int>()
     val noteTitle = MutableLiveData<String>()
