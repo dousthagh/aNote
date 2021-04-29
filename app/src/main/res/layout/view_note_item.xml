@@ -4,24 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/note_item_height"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/list_item_margin"
     app:cardCornerRadius="@dimen/list_item_corner_radius"
     tools:ignore="MissingConstraints">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:padding="@dimen/dp5"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/lbl_note_item_title"
-            android:textSize="@dimen/font_size_list_item_title"
-            android:textColor="@color/danger"
-            android:gravity="start"
-            android:padding="@dimen/list_item_title_padding"
             tools:text="title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            style="@style/header_label_style" />
 
         <TextView
             android:id="@+id/lbl_note_item_text"
@@ -31,23 +28,15 @@
             android:textSize="@dimen/font_size_list_item_body"
             android:gravity="start"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lbl_note_item_title"
             tools:text="text of this note text of this note text of this note text of this  note text of this note text of this  note text of this note text of this note text of this note text of this note" />
 
         <TextView
-            android:id="@+id/lbl_note_item_inserted_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/medium_gray"
-            android:gravity="start"
-            android:textSize="@dimen/font_size_list_item_footer"
-            app:layout_constraintBottom_toBottomOf="@id/lbl_note_item_text"
-            app:layout_constraintTop_toBottomOf="parent"
-            tools:text="1400-01-29" />
+            android:id="@+id/tv_category_title"
+            tools:text="category title"
+            android:layout_gravity="end"
+            style="@style/footer_label_style" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
 

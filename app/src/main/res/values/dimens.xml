@@ -8,6 +8,7 @@
     <dimen name="h2">30sp</dimen>
     <dimen name="h3">20sp</dimen>
     <dimen name="dp7">7dp</dimen>
+    <dimen name="dp5">5dp</dimen>
     <dimen name="dp15">15dp</dimen>
     <dimen name="sp15">15sp</dimen>
     <dimen name="sp12">12sp</dimen>

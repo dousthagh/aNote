@@ -6,11 +6,11 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.R
-import co.nikavtech.anote.database.entities.NoteEntity
+import co.nikavtech.anote.database.entities.NoteWithCategoryEntity
 
 class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewHolder>(), Filterable {
-    private var noteList: List<NoteEntity> = arrayListOf()
-    private var filteredNoteList: List<NoteEntity> = arrayListOf()
+    private var noteListEntity: List<NoteWithCategoryEntity> = arrayListOf()
+    private var filteredNoteListEntity: List<NoteWithCategoryEntity> = arrayListOf()
     private val listener: NoteItemEvent = noteItemEvent
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,22 +19,22 @@ class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(filteredNoteList[position], listener)
+        holder.bind(filteredNoteListEntity[position], listener)
     }
 
-    override fun getItemCount(): Int = filteredNoteList.size
+    override fun getItemCount(): Int = filteredNoteListEntity.size
 
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 val charString = p0.toString()
-                filteredNoteList = if (charString.isEmpty()) {
-                    noteList
+                filteredNoteListEntity = if (charString.isEmpty()) {
+                    noteListEntity
                 } else {
-                    val filteredList = arrayListOf<NoteEntity>()
-                    for (row in noteList) {
-                        if (row._title?.toLowerCase()!!.contains(charString.toLowerCase())
-                            || row._text!!.contains(charString.toLowerCase())) {
+                    val filteredList = arrayListOf<NoteWithCategoryEntity>()
+                    for (row in noteListEntity) {
+                        if (row.noteEntity._title?.toLowerCase()!!.contains(charString.toLowerCase())
+                            || row.noteEntity._text!!.contains(charString.toLowerCase())) {
                             filteredList.add(row)
                         }
                     }
@@ -42,21 +42,21 @@ class NoteListAdapter(noteItemEvent: NoteItemEvent) : RecyclerView.Adapter<ViewH
                 }
 
                 val filterResults = FilterResults()
-                filterResults.values = filteredNoteList
+                filterResults.values = filteredNoteListEntity
                 return filterResults
             }
 
             override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-                filteredNoteList = p1?.values as List<NoteEntity>
+                filteredNoteListEntity = p1?.values as List<NoteWithCategoryEntity>
                 notifyDataSetChanged()
             }
 
         }
     }
 
-    fun setAllNoteItem(noteItems:List<NoteEntity>){
-        this.noteList = noteItems
-        this.filteredNoteList = noteItems
+    fun setAllNoteItem(noteItemEntities:List<NoteWithCategoryEntity>){
+        this.noteListEntity = noteItemEntities
+        this.filteredNoteListEntity = noteItemEntities
         notifyDataSetChanged()
     }
 }
