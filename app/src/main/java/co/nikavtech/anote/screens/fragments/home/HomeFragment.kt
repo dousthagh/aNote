@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
+import co.nikavtech.anote.database.entities.NoteWithCategoryEntity
 import co.nikavtech.anote.databinding.FragmentHomeBinding
 import co.nikavtech.anote.screens.adapters.note.NoteWithCategoryAdapter
 
@@ -29,7 +31,7 @@ class HomeFragment : Fragment() {
 
 
         binding.fabAdd.setOnClickListener {
-            findNavController().navigate(R.id.noteFragment)
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNoteFragment(null))
         }
         return binding.root
     }
@@ -39,6 +41,13 @@ class HomeFragment : Fragment() {
         binding.rvNoteList.setHasFixedSize(true)
 
         val noteWithCategoryAdapter = NoteWithCategoryAdapter(NoteWithCategoryAdapter.DIFF_CALLBACK)
+
+        noteWithCategoryAdapter.setOnItemClickListener(object : NoteWithCategoryAdapter.OnItemClickListener{
+            override fun onItemClick(noteWithCategory: NoteWithCategoryEntity?) {
+                Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.actionHomeFragmentToNoteFragment(noteWithCategory))
+            }
+        })
+
         homeViewModel.notesWithCategory?.observe(viewLifecycleOwner, {
             noteWithCategoryAdapter.submitList(it)
             noteWithCategoryAdapter.notifyDataSetChanged()

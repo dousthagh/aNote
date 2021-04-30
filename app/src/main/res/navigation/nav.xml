@@ -19,7 +19,20 @@
         android:id="@+id/noteFragment"
         tools:layout="@layout/fragment_note"
         android:name="co.nikavtech.anote.screens.fragments.note.NoteFragment"
-        android:label="@string/new_note" />
+        android:label="@string/new_note" >
+
+        <argument
+            android:name="note_with_category"
+            app:argType="co.nikavtech.anote.database.entities.NoteWithCategoryEntity"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_noteFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/homeFragment" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/aboutFragment"
         tools:layout="@layout/fragment_about"

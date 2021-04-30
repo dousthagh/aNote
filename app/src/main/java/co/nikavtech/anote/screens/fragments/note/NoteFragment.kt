@@ -2,22 +2,27 @@ package co.nikavtech.anote.screens.fragments.note
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.database.entities.CategoryEntity
+import co.nikavtech.anote.database.entities.NoteWithCategoryEntity
 import co.nikavtech.anote.databinding.FragmentNoteBinding
 import co.nikavtech.anote.screens.adapters.category.select_categories.SelectCategoryAdapter
 
 class NoteFragment : Fragment() {
     private lateinit var binding: FragmentNoteBinding
     private lateinit var noteViewModel: NoteViewModel
+    private lateinit var categoryAdapter: SelectCategoryAdapter
+    private var receivedNoteWithCategoryEntity: NoteWithCategoryEntity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +32,11 @@ class NoteFragment : Fragment() {
 
         init(inflater, container)
 
+        prepareMenu()
+
         prepareRecyclerView()
+
+        prepareInputs()
 
 //region observation links
         noteViewModel.isSuccessSaveNote.observe(viewLifecycleOwner, {
@@ -38,14 +47,21 @@ class NoteFragment : Fragment() {
                         getString(R.string.save_note_successfully),
                         Toast.LENGTH_LONG
                     ).show()
-                    binding.txtNote.setText("")
-                    binding.txtNoteTitle.setText("")
                 } else {
                     Toast.makeText(context, getString(R.string.save_note_error), Toast.LENGTH_LONG)
                         .show()
                 }
                 noteViewModel.resetISuccessSaveNote()
             }
+        })
+
+        noteViewModel.noteTitle.observe(viewLifecycleOwner, {
+            (activity as AppCompatActivity).supportActionBar?.title = it
+        })
+
+        noteViewModel.categoryId.observe(viewLifecycleOwner, {
+            categoryAdapter.setSelectCategoryItem(it)
+            categoryAdapter.notifyDataSetChanged()
         })
 //endregion
 
@@ -74,11 +90,14 @@ class NoteFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = noteViewModel
 
-        setHasOptionsMenu(true)
     }
 
     private fun showShareIntent() {
         startActivity(getShareIntent())
+    }
+
+    private fun prepareMenu() {
+        setHasOptionsMenu(true)
     }
 
     private fun prepareRecyclerView() {
@@ -87,7 +106,7 @@ class NoteFragment : Fragment() {
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.rvSelectedCategories.layoutManager = linearLayoutManager
 
-        val categoryAdapter = SelectCategoryAdapter(SelectCategoryAdapter.DIFF_CALLBACK)
+        categoryAdapter = SelectCategoryAdapter(SelectCategoryAdapter.DIFF_CALLBACK)
 
 
         noteViewModel.allCategories?.observe(activity!!, {
@@ -106,23 +125,46 @@ class NoteFragment : Fragment() {
         })
     }
 
-    private fun save() {
-        noteViewModel.saveNote()
+    private fun prepareInputs() {
+        try {
+            receivedNoteWithCategoryEntity = getBundleArguments().noteWithCategory
+            if(receivedNoteWithCategoryEntity == null)
+                throw IllegalArgumentException("receivedNoteWithCategoryEntity is null")
+
+            receivedNoteWithCategoryEntity?.let {
+                noteViewModel.setNoteWithCategoryEntity(it)
+            }
+        } catch (ex: Exception) {
+            noteViewModel.resetNoteWithCategoryEntity()
+        }
     }
 
+    private fun save() {
+        if(receivedNoteWithCategoryEntity == null)
+            noteViewModel.insertNote()
+        else{
+            noteViewModel.update()
+        }
+    }
+
+    private fun getBundleArguments(): NoteFragmentArgs {
+        return NoteFragmentArgs.fromBundle(arguments!!)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.save_note_fragment_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.save_note_fragment_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.save -> save()
-            R.id.share -> showShareIntent()
         }
 
-        return true
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            view!!.findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {

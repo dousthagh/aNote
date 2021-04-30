@@ -17,10 +17,10 @@
     <dimen name="note_item_height">130dp</dimen>
     <dimen name="list_item_margin">5dp</dimen>
     <dimen name="list_item_corner_radius">5dp</dimen>
-    <dimen name="font_size_list_item_title">18sp</dimen>
+    <dimen name="font_size_list_item_title">15sp</dimen>
     <dimen name="list_item_title_padding">3sp</dimen>
-    <dimen name="font_size_list_item_body">15sp</dimen>
-    <dimen name="font_size_list_item_footer">13sp</dimen>
+    <dimen name="font_size_list_item_body">13sp</dimen>
+    <dimen name="font_size_list_item_footer">11sp</dimen>
     <dimen name="save_category_container_height">200dp</dimen>
     <dimen name="title_text_size">17sp</dimen>
     <dimen name="list_item_height">80dp</dimen>

@@ -1,6 +1,5 @@
 package co.nikavtech.anote.screens.adapters.category.select_categories
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,39 @@ import androidx.recyclerview.widget.RecyclerView
 import co.nikavtech.anote.R
 import co.nikavtech.anote.database.entities.CategoryEntity
 
-class SelectCategoryAdapter (var diffCallback: DiffUtil.ItemCallback<CategoryEntity?>) :
-    ListAdapter<CategoryEntity?, SelectCategoryAdapter.SelectCategoryAdapterViewHolder?>(diffCallback) {
+class SelectCategoryAdapter(var diffCallback: DiffUtil.ItemCallback<CategoryEntity?>) :
+    ListAdapter<CategoryEntity?, SelectCategoryAdapter.SelectCategoryAdapterViewHolder?>(
+        diffCallback
+    ) {
     private var listener: OnItemClickListener? = null
-    var selectedIndex : Int = -1
+    private var selectedIndex: Int = -1
+    private var selectedCategoryId: Int = -1
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectCategoryAdapterViewHolder {
+    companion object {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<CategoryEntity?> =
+            object : DiffUtil.ItemCallback<CategoryEntity?>() {
+                override fun areItemsTheSame(
+                    oldItem: CategoryEntity,
+                    newItem: CategoryEntity
+                ): Boolean {
+                    return oldItem.id === newItem.id
+                }
+
+                override fun areContentsTheSame(
+                    oldItem: CategoryEntity,
+                    newItem: CategoryEntity
+                ): Boolean {
+                    return oldItem.title == newItem.title
+                }
+            }
+    }
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SelectCategoryAdapterViewHolder {
         return SelectCategoryAdapterViewHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.select_category_item, parent, false)
@@ -30,16 +55,19 @@ class SelectCategoryAdapter (var diffCallback: DiffUtil.ItemCallback<CategoryEnt
         val view = holderSelect.itemView
 
         holderSelect.itemView.setOnClickListener {
-            selectedIndex = position
-            notifyDataSetChanged()
             this.listener?.onItemClick(getItem(position))
         }
-        if(selectedIndex == position){
-            view.findViewById<ImageView>(R.id.imgSelect).visibility = View.VISIBLE
+        if (selectedCategoryId > -1) {
+            if (getCategoryAt(position)?.id == selectedCategoryId) {
+                selectedIndex = position
+                view.findViewById<ImageView>(R.id.imgSelect).visibility = View.VISIBLE
+            } else
+                view.findViewById<ImageView>(R.id.imgSelect).visibility = View.GONE
         }
-        else{
-            view.findViewById<ImageView>(R.id.imgSelect).visibility = View.GONE
-        }
+    }
+
+    fun setSelectCategoryItem(id: Int) {
+        selectedCategoryId = id
     }
 
     fun getCategoryAt(position: Int): CategoryEntity? {
@@ -48,6 +76,14 @@ class SelectCategoryAdapter (var diffCallback: DiffUtil.ItemCallback<CategoryEnt
 
     fun setOnItemClickListener(listener: OnItemClickListener?) {
         this.listener = listener
+    }
+
+    private fun selectItem(view: View) {
+        view.findViewById<ImageView>(R.id.imgSelect).visibility = View.VISIBLE
+    }
+
+    private fun unSelectItem(view: View) {
+        view.findViewById<ImageView>(R.id.imgSelect).visibility = View.GONE
     }
 
     interface OnItemClickListener {
@@ -72,17 +108,5 @@ class SelectCategoryAdapter (var diffCallback: DiffUtil.ItemCallback<CategoryEnt
         }
     }
 
-    companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<CategoryEntity?> =
-            object : DiffUtil.ItemCallback<CategoryEntity?>() {
-                override fun areItemsTheSame(oldItem: CategoryEntity, newItem: CategoryEntity): Boolean {
-                    return oldItem.id === newItem.id
-                }
-
-                override fun areContentsTheSame(oldItem: CategoryEntity, newItem: CategoryEntity): Boolean {
-                    return oldItem.title == newItem.title
-                }
-            }
-    }
 
 }
