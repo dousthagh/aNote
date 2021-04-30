@@ -26,5 +26,5 @@
     <string name="inserted_date">تاریخ ثبت: %1$d</string>
     <string name="category_title">نام دسته بندی</string>
     <string name="error_category_title_is_empty">عنوان دسته بندی خالی است</string>
-    <string name="remove">remove</string>
+    <string name="remove">حذف</string>
 </resources>
