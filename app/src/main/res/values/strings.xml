@@ -27,4 +27,7 @@
     <string name="category_title">نام دسته بندی</string>
     <string name="error_category_title_is_empty">عنوان دسته بندی خالی است</string>
     <string name="remove">حذف</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">last name</string>
+    <string name="mobile">Mobile</string>
 </resources>
