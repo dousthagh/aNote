@@ -10,7 +10,7 @@ data class NoteEntity(
     var _id: Int? = null,
 
     @ColumnInfo(name = "category_id")
-    var categoryId: Int,
+    var categoryId: Int? = -1,
 
     @ColumnInfo(name = "title")
     var _title: String? = null,
@@ -21,7 +21,7 @@ data class NoteEntity(
     @ColumnInfo(name = "created_date")
     val _insertedDate: Long = System.currentTimeMillis(),
 
-):Serializable {
+    ):Serializable {
     fun isValidate(): Boolean {
         return _id != null && _title != null && _text != null
     }

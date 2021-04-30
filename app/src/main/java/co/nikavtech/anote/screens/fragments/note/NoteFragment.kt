@@ -9,6 +9,7 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.nikavtech.anote.R
@@ -62,6 +63,16 @@ class NoteFragment : Fragment() {
         noteViewModel.categoryId.observe(viewLifecycleOwner, {
             categoryAdapter.setSelectCategoryItem(it)
             categoryAdapter.notifyDataSetChanged()
+        })
+
+        noteViewModel.isSuccessRemoveNote.observe(viewLifecycleOwner, {
+            it?.let {
+                if (it){
+                    findNavController().navigateUp()
+                }
+                noteViewModel.resetISuccessRemoveNote()
+            }
+
         })
 //endregion
 
@@ -132,7 +143,7 @@ class NoteFragment : Fragment() {
                 throw IllegalArgumentException("receivedNoteWithCategoryEntity is null")
 
             receivedNoteWithCategoryEntity?.let {
-                noteViewModel.setNoteWithCategoryEntity(it)
+                noteViewModel.makeNoteWithCategoryEntity(it)
             }
         } catch (ex: Exception) {
             noteViewModel.resetNoteWithCategoryEntity()
@@ -151,6 +162,11 @@ class NoteFragment : Fragment() {
         return NoteFragmentArgs.fromBundle(arguments!!)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.delete).isVisible = receivedNoteWithCategoryEntity != null
+            
+    }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.save_note_fragment_menu, menu)
@@ -159,6 +175,8 @@ class NoteFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.save -> save()
+            R.id.share -> showShareIntent()
+            R.id.delete -> noteViewModel.delete()
         }
 
         return NavigationUI.onNavDestinationSelected(
