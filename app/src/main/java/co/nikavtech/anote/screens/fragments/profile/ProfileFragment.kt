@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import co.nikavtech.anote.database.NoteDatabase
 import co.nikavtech.anote.databinding.FragmentCategoryBinding
 import co.nikavtech.anote.databinding.FragmentProfileBinding
 
@@ -15,7 +17,7 @@ class ProfileFragment :Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         init(inflater, container)
 
         return binding.root
@@ -24,5 +26,9 @@ class ProfileFragment :Fragment(){
     private fun init(inflater: LayoutInflater,
                      container: ViewGroup?){
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val application = requireNotNull(this.activity).application
+        val dataSource = NoteDatabase.getInstance(application)
+        val factory = ProfileViewModelFactory(dataSource.userDao, application)
+        val profileViewModel = ViewModelProvider(this, factory).get(ProfileViewModel::class.java)
     }
 }
